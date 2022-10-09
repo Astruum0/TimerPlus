@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Paramètres</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="dist/bootstrap.css" />
+</head>
+
+<body class="bg-dark text-white">
+    <h1 class="text-center mt-3 h4">Panel de controles</h1>
+    <hr />
+    <div class="row">
+        <div class="col my-3">
+            <div class="card text-white bg-dark text-center ml-3 mr-3" style="height: 140px">
+                <div class="card-body d-flex justify-content-center flex-column">
+                    <h1 id="timerMini"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 my-3">
+            <div class="card text-white bg-dark text-center ml-3" style="height: 280px">
+                <div class="card-body d-flex justify-content-center flex-column">
+                    <h5 class="card-title display-5">Controles</h5>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-secondary mr-1" onclick="reset()" title="Réinitialiser le timer (R)">
+                <img
+                  src="assets/fontawesome/redo.svg"
+                  alt="refresh"
+                  class="icon"
+                />
+              </button>
+                        <button class="btn btn-secondary" onclick="toggleStart()" title="Start/Pause (Espace)">
+                <img
+                  src="assets/fontawesome/play.svg"
+                  alt="refresh"
+                  class="icon"
+                  id="pauseButton"
+                />
+              </button>
+                    </div>
+
+                    <h5 class="card-title display-5 mt-1">Contenu texte</h5>
+                    <input type="text" name="textContent" id="textContent" oninput="changeText(this)" />
+                    <button class="btn btn-secondary mt-1" id="orientation" onclick="toggleOrientation()" style="width: 60%; margin-left: 20%">
+              Afficher en colonne
+            </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 my-3">
+            <div class="card text-white bg-dark text-center mr-3">
+                <div class="
+              card-body
+              d-flex
+              justify-content-center
+              flex-column
+              align-items-center
+            " style="height: 280px">
+                    <h5 class="card-title display-5">Taille et Police</h5>
+                    <h6 class="card-title display-6">Timer</h6>
+
+                    <input type="range" min="1" max="36" value="30" id="sizeSlider" style="width: 80%" />
+                    <select class="custom-select my-3" style="width: 40%" id="fontSelector" onchange="changeFont(this)">
+              <option selected value="Digits">Digits</option>
+              <option value="Arial">Arial</option>
+
+              <option value="Times">Times</option>
+              <option value="Verdana">Verdana</option>
+              <option value="BrownFTV-bold">BrownFTV Bold</option>
+              <option value="BrownFTV-regular">BrownFTV Regular</option>
+            </select>
+                    <h6 class="card-title display-6">Texte</h6>
+
+                    <input type="range" min="1" max="36" value="30" id="textSizeSlider" style="width: 80%" />
+                    <select class="custom-select my-3" style="width: 40%" id="textFontSelector" onchange="changeTextFont(this)">
+              <option selected value="Digits">Digits</option>
+              <option value="Arial">Arial</option>
+
+              <option value="Times">Times</option>
+              <option value="Verdana">Verdana</option>
+              <option value="BrownFTV-bold">BrownFTV Bold</option>
+              <option value="BrownFTV-regular">BrownFTV Regular</option>
+            </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mt-3">
+            <div class="card text-white bg-dark text-center ml-3 p-3">
+                <div class="
+              card-body
+              d-flex
+              justify-content-center
+              flex-column
+              align-items-center
+            " style="height: 140px">
+                    <h5 class="card-title display-5">Type</h5>
+                    <div class="typeDiv d-flex align-items-start flex-column">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="chronoChoice" id="ascendingRadio" value="ascending" checked onchange="toggleTimerType()" />
+                            <label class="form-check-label" for="ascendingRadio">
+                  Chronomètre
+                </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="chronoChoice" id="descendingRadio" value="descending" onchange="toggleTimerType()" />
+                            <label class="form-check-label" for="descendingRadio">
+                  Compte à rebours
+                </label>
+                            <div class="d-flex justify-content-center hidden" id="numberField">
+                                <input class="form-control form-control-sm" type="number" name="minutes" id="minutes" min="0" value="1" style="width: 4em" onchange="toggleTimerType()" />
+                                <span class="mx-2">:</span>
+                                <input class="form-control form-control-sm" type="number" name="seconds" id="seconds" min="-1" max="60" value="0" style="width: 4em" onchange="toggleTimerType()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mt-3">
+            <div class="card text-white bg-dark text-center mr-3 p-3">
+                <div class="
+              card-body
+              d-flex
+              justify-content-center
+              flex-column
+              align-items-center
+            " style="height: 140px">
+                    <div class="d-flex justify-content-center flex-row"></div>
+                    <h5 class="card-title display-5">Couleurs</h5>
+
+                    <div class="colorDiv">
+                        <div class="d-flex justify-content-start">
+                            <input class="input-color-picker mr-2" type="color" name="background" id="backgroundColor" oninput="changeBackground(this)" value="#343a40" />
+                            <label for="backgroundColor">Fond d'écran timer</label>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <input class="input-color-picker mr-2" type="color" name="backgroundText" id="backgroundTextColor" oninput="changeTextBackground(this)" value="#343a40" />
+                            <label for="backgroundTextColor">Fond d'écran texte</label>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <input class="input-color-picker mr-2" type="color" name="font" id="fontColor" oninput="changeFontColor(this)" value="#ffffff" />
+                            <label for="fontColor">Timer</label>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <input class="input-color-picker mr-2" type="color" name="text" id="textColor" oninput="changeTextColor(this)" value="#ffffff" />
+                            <label for="textColor">Texte</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="timer.js"></script>
+    <script src="settings.js"></script>
+</body>
+
+</html>
